@@ -137,6 +137,11 @@ You can also install the hook script and `settings.json` under your
 user-level Claude Code config instead of per-project, if you want the face to
 track every project rather than just one.
 
+## Working
+
+![Done](_docs/claudy-done.png)
+![Danger](_docs/claudy-danger.png)
+
 ## License
 
 TBD.
