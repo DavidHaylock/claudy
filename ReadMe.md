@@ -145,3 +145,9 @@ track every project rather than just one.
 ## License
 
 TBD.
+
+## ToDo
+
+- Fix Bootup eyes
+- Create State transition between bootup to idle
+- Create State transition between shutdown to new state
