@@ -18,6 +18,7 @@
 
 #include "claude_face_v2_faces.h"
 #include <string.h>
+#include <stdio.h>
 
 /*==========================================================================
  * LVGL 8 / 9 compatibility (verbatim from claude_face.cpp)
@@ -478,6 +479,9 @@ static void blink_cb(void *var, int32_t t)
         lv_obj_set_height(b->objs[i], h);
         lv_obj_set_y(b->objs[i], b->base_y[i] + (b->base_h[i] - h) / 2);
     }
+    printf("DBG blink t=%d scale=%d h0=%d y0=%d base_h0=%d base_y0=%d\n",
+           (int)t, (int)scale, (int)lv_obj_get_height(b->objs[0]),
+           (int)lv_obj_get_y(b->objs[0]), (int)b->base_h[0], (int)b->base_y[0]);
 }
 
 /* start's eye-half blink, see claude_face_v2_faces.h. Captures each
@@ -487,6 +491,12 @@ void cf2_blink_start(lv_obj_t **objs, uint8_t n, uint32_t dur_ms)
 {
     if(n > CF2_BLINK_MAX) n = CF2_BLINK_MAX;
     g_blink.n = n;
+    /* lv_obj_set_pos/set_size() only schedule a layout update -- the
+     * object's real coords (what get_y/get_height read) aren't resolved
+     * until the next layout pass. Force it now so the baseline below isn't
+     * captured as 0/0, which would collapse the eyes to a 1px sliver on
+     * every "blink" instead of a brief flick. */
+    if(n > 0) lv_obj_update_layout(objs[0]);
     for(uint8_t i = 0; i < n; i++) {
         g_blink.objs[i]   = objs[i];
         g_blink.base_y[i] = lv_obj_get_y(objs[i]);
@@ -538,6 +548,7 @@ void cf2_blink2_start(lv_obj_t **objs, const uint16_t *phase, uint8_t n, uint32_
 {
     if(n > CF2_BLINK2_MAX) n = CF2_BLINK2_MAX;
     g_blink2.n = n;
+    if(n > 0) lv_obj_update_layout(objs[0]);
     for(uint8_t i = 0; i < n; i++) {
         g_blink2.objs[i]   = objs[i];
         g_blink2.base_y[i] = lv_obj_get_y(objs[i]);
