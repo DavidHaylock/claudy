@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #08080a; }
+  a { color: oklch(0.78 0.14 200); }
+  a:hover { color: oklch(0.88 0.10 200); }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.06); } }
+  @keyframes blink2 { 0%, 46%, 54%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.06); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes spinback { to { transform: rotate(-360deg); } }
+  @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.18); opacity: 0.7; } }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes drift { 0%, 100% { transform: translateX(-12px); } 50% { transform: translateX(12px); } }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+  @keyframes zzz { 0% { transform: translateY(8px) scale(0.8); opacity: 0; } 40% { opacity: 0.9; } 100% { transform: translateY(-20px) scale(1.1); opacity: 0; } }
+  @keyframes breathe { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  @keyframes fadeout { 0% { opacity: 1; } 100% { opacity: 0.2; } }
+  @keyframes tick { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  @keyframes sweep { 0% { width: 12px; } 100% { width: 168px; } }
+</style>
+</helmet>
+
+<div style="min-height:100vh;width:max-content;min-width:100%;box-sizing:border-box;padding:72px 80px 120px;font-family:'IBM Plex Mono',monospace;color:#f2ead8;background:radial-gradient(1200px 700px at 20% -10%, #14141a 0%, #08080a 70%)">
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:72px;max-width:900px">
+    <div style="font-family:'Silkscreen',monospace;font-size:34px;letter-spacing:1px">CC FACES &mdash; V2</div>
+    <div style="font-size:15px;line-height:1.7;color:rgba(242,234,216,.6)">Second pass. The face now fills the panel: eyes are 96px, brows carry the expression, and the state word drops to a small label at the bottom so the read at arm's length is the face, not the text. Still rectangles only, still one hue per state.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3, 412px);gap:96px 88px;justify-content:start">
+
+    <!-- START -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #17150f 0%, #060606 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.3)">SESSIONSTART</div>
+        </sc-if>
+        <div style="position:absolute;top:104px;left:0;right:0;display:flex;justify-content:center;gap:56px;animation:bob 3.2s ease-in-out infinite">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="width:96px;height:14px;background:oklch(0.62 0.13 145)"></div>
+            <div style="display:flex;animation:blink 5s steps(1,end) infinite">
+              <div style="width:48px;height:96px;background:oklch(0.84 0.15 145)"></div>
+              <div style="width:48px;height:96px;background:oklch(0.60 0.12 145)"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="width:96px;height:14px;background:oklch(0.62 0.13 145)"></div>
+            <div style="display:flex;animation:blink 5s steps(1,end) infinite">
+              <div style="width:48px;height:96px;background:oklch(0.84 0.15 145)"></div>
+              <div style="width:48px;height:96px;background:oklch(0.60 0.12 145)"></div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;top:262px;left:0;right:0;display:flex;justify-content:center">
+          <sc-if value="{{ lively }}" hint-placeholder-val="{{ true }}">
+            <div style="height:14px;background:oklch(0.84 0.15 145);animation:sweep 1.8s ease-in-out infinite alternate"></div>
+          </sc-if>
+          <sc-if value="{{ still }}" hint-placeholder-val="{{ false }}">
+            <div style="width:56px;height:14px;background:oklch(0.84 0.15 145)"></div>
+          </sc-if>
+        </div>
+        <div style="position:absolute;top:314px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.84 0.15 145)">BOOTING</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.42)">session open</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">start<br><span style="color:rgba(242,234,216,.3)">SessionStart / startup</span></div>
+      </sc-if>
+    </div>
+
+    <!-- IDLE -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #101420 0%, #060606 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.3)">IDLE_PROMPT</div>
+        </sc-if>
+        <sc-if value="{{ lively }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:82px;left:296px;display:flex;flex-direction:column;gap:6px">
+            <div style="font-family:'Silkscreen',monospace;font-size:22px;color:oklch(0.78 0.14 250);animation:zzz 2.4s ease-in-out infinite">z</div>
+            <div style="font-family:'Silkscreen',monospace;font-size:16px;color:oklch(0.78 0.14 250);animation:zzz 2.4s ease-in-out infinite;animation-delay:.8s">z</div>
+          </div>
+        </sc-if>
+        <div style="position:absolute;top:128px;left:0;right:0;display:flex;justify-content:center;gap:56px;animation:bob 5s ease-in-out infinite">
+          <div style="display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex">
+              <div style="width:32px;height:12px;background:oklch(0.52 0.10 250)"></div>
+              <div style="width:64px;height:12px;background:oklch(0.52 0.10 250);margin-top:8px"></div>
+            </div>
+            <div style="width:96px;height:18px;background:oklch(0.80 0.13 250)"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:22px">
+            <div style="display:flex">
+              <div style="width:64px;height:12px;background:oklch(0.52 0.10 250);margin-top:8px"></div>
+              <div style="width:32px;height:12px;background:oklch(0.52 0.10 250)"></div>
+            </div>
+            <div style="width:96px;height:18px;background:oklch(0.80 0.13 250)"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:258px;left:0;right:0;display:flex;justify-content:center">
+          <div style="width:52px;height:14px;background:oklch(0.80 0.13 250)"></div>
+        </div>
+        <div style="position:absolute;top:314px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.80 0.13 250)">IDLE</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.42)">quiet for 4m</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">idle<br><span style="color:rgba(242,234,216,.3)">Notification / idle_prompt</span></div>
+      </sc-if>
+    </div>
+
+    <!-- ATTENTION -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #241c08 0%, #070604 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ lively }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:6px;border-radius:50%;border:8px solid oklch(0.84 0.16 75);animation:breathe 1.3s ease-in-out infinite"></div>
+        </sc-if>
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.36)">PERMISSION_PROMPT</div>
+        </sc-if>
+        <div style="position:absolute;top:96px;left:0;right:0;display:flex;justify-content:center;gap:52px;animation:drift 2.6s ease-in-out infinite">
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div style="width:96px;height:14px;background:oklch(0.84 0.16 75)"></div>
+            <div style="width:96px;height:96px;background:oklch(0.84 0.16 75);position:relative">
+              <div style="position:absolute;top:14px;left:14px;width:30px;height:30px;background:#241c08"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div style="width:96px;height:14px;background:oklch(0.84 0.16 75)"></div>
+            <div style="width:96px;height:96px;background:oklch(0.84 0.16 75);position:relative">
+              <div style="position:absolute;top:14px;left:14px;width:30px;height:30px;background:#241c08"></div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;top:258px;left:0;right:0;display:flex;justify-content:center">
+          <div style="width:36px;height:36px;background:oklch(0.84 0.16 75);animation:pulse 1.3s ease-in-out infinite"></div>
+        </div>
+        <div style="position:absolute;top:318px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.88 0.16 75)">YOUR TURN</div>
+          <div style="font-size:13px;letter-spacing:2px;color:rgba(242,234,216,.4)">TAP TO DISMISS</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">attention<br><span style="color:rgba(242,234,216,.3)">Notification / permission_prompt</span></div>
+      </sc-if>
+    </div>
+
+    <!-- DONE -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #0e1c14 0%, #050605 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.3)">STOP</div>
+        </sc-if>
+        <div style="position:absolute;top:116px;left:0;right:0;display:flex;justify-content:center;gap:52px;animation:bob 2.4s ease-in-out infinite">
+          <div style="display:flex">
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:48px"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:24px"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:0"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:24px"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:48px"></div>
+          </div>
+          <div style="display:flex">
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:48px"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:24px"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:0"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:24px"></div>
+            <div style="width:24px;height:24px;background:oklch(0.84 0.17 150);margin-top:48px"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:250px;left:0;right:0;display:flex;justify-content:center">
+          <div style="display:flex">
+            <div style="width:20px;height:20px;background:oklch(0.84 0.17 150);margin-top:0"></div>
+            <div style="width:20px;height:20px;background:oklch(0.84 0.17 150);margin-top:14px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.84 0.17 150);margin-top:22px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.84 0.17 150);margin-top:22px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.84 0.17 150);margin-top:14px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.84 0.17 150);margin-top:0"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:322px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.86 0.17 150)">DONE</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.42)">task complete</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">done<br><span style="color:rgba(242,234,216,.3)">Stop</span></div>
+      </sc-if>
+    </div>
+
+    <!-- RATE LIMIT -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #1c1024 0%, #060506 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ lively }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:6px;border-radius:50%;background:conic-gradient(from 0deg, transparent 0 55%, oklch(0.76 0.16 305) 100%);-webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));mask:radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));animation:spinback 5s linear infinite"></div>
+        </sc-if>
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.3)">STOPFAILURE</div>
+        </sc-if>
+        <div style="position:absolute;top:112px;left:0;right:0;display:flex;justify-content:center;gap:52px">
+          <div style="width:96px;height:96px;border:20px solid oklch(0.78 0.16 305);box-sizing:border-box;display:flex;align-items:center;justify-content:center;animation:spin 3.4s linear infinite">
+            <div style="width:20px;height:20px;background:oklch(0.78 0.16 305);margin-left:-16px"></div>
+          </div>
+          <div style="width:96px;height:96px;border:20px solid oklch(0.78 0.16 305);box-sizing:border-box;display:flex;align-items:center;justify-content:center;animation:spinback 3.4s linear infinite">
+            <div style="width:20px;height:20px;background:oklch(0.78 0.16 305);margin-left:-16px"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:254px;left:0;right:0;display:flex;justify-content:center;gap:12px">
+          <div style="width:18px;height:18px;background:oklch(0.78 0.16 305);animation:tick 1.2s ease-in-out infinite"></div>
+          <div style="width:18px;height:18px;background:oklch(0.78 0.16 305);animation:tick 1.2s ease-in-out infinite;animation-delay:.2s"></div>
+          <div style="width:18px;height:18px;background:oklch(0.78 0.16 305);animation:tick 1.2s ease-in-out infinite;animation-delay:.4s"></div>
+        </div>
+        <div style="position:absolute;top:314px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:18px;letter-spacing:3px;color:oklch(0.82 0.16 305)">RATE LIMIT</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.42)">backing off &middot; retry 60s</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">ratelimit<br><span style="color:rgba(242,234,216,.3)">StopFailure / rate_limit</span></div>
+      </sc-if>
+    </div>
+
+    <!-- FAIL -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #240f10 0%, #070505 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.3)">POSTTOOLUSEFAILURE</div>
+        </sc-if>
+        <div style="position:absolute;top:112px;left:0;right:0;display:flex;justify-content:center;gap:52px;animation:shake 3s ease-in-out infinite">
+          <div style="display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);gap:3px">
+            <div style="background:oklch(0.76 0.19 25)"></div><div></div><div style="background:oklch(0.76 0.19 25)"></div>
+            <div></div><div style="background:oklch(0.76 0.19 25)"></div><div></div>
+            <div style="background:oklch(0.76 0.19 25)"></div><div></div><div style="background:oklch(0.76 0.19 25)"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);gap:3px">
+            <div style="background:oklch(0.76 0.19 25)"></div><div></div><div style="background:oklch(0.76 0.19 25)"></div>
+            <div></div><div style="background:oklch(0.76 0.19 25)"></div><div></div>
+            <div style="background:oklch(0.76 0.19 25)"></div><div></div><div style="background:oklch(0.76 0.19 25)"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:248px;left:0;right:0;display:flex;justify-content:center">
+          <div style="display:flex">
+            <div style="width:20px;height:20px;background:oklch(0.76 0.19 25);margin-top:22px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.76 0.19 25);margin-top:12px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.76 0.19 25);margin-top:0"></div>
+            <div style="width:20px;height:20px;background:oklch(0.76 0.19 25);margin-top:0"></div>
+            <div style="width:20px;height:20px;background:oklch(0.76 0.19 25);margin-top:12px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.76 0.19 25);margin-top:22px"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:322px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.80 0.19 25)">FAILED</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.42)">tool call bounced</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">fail<br><span style="color:rgba(242,234,216,.3)">PostToolUseFailure</span></div>
+      </sc-if>
+    </div>
+
+    <!-- DANGER -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #291702 0%, #080604 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ lively }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:6px;border-radius:50%;background:repeating-conic-gradient(from 0deg, oklch(0.78 0.18 45) 0 6deg, transparent 6deg 12deg);-webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));mask:radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));animation:spin 9s linear infinite"></div>
+        </sc-if>
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.36)">PRETOOLUSE &middot; BASH</div>
+        </sc-if>
+        <div style="position:absolute;top:112px;left:0;right:0;display:flex;justify-content:center;gap:48px;animation:shake 2.2s ease-in-out infinite">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex">
+              <div style="width:32px;height:14px;background:oklch(0.60 0.15 45);margin-top:0"></div>
+              <div style="width:32px;height:14px;background:oklch(0.60 0.15 45);margin-top:12px"></div>
+              <div style="width:32px;height:14px;background:oklch(0.60 0.15 45);margin-top:24px"></div>
+            </div>
+            <div style="width:96px;height:52px;background:oklch(0.80 0.18 45)"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex">
+              <div style="width:32px;height:14px;background:oklch(0.60 0.15 45);margin-top:24px"></div>
+              <div style="width:32px;height:14px;background:oklch(0.60 0.15 45);margin-top:12px"></div>
+              <div style="width:32px;height:14px;background:oklch(0.60 0.15 45);margin-top:0"></div>
+            </div>
+            <div style="width:96px;height:52px;background:oklch(0.80 0.18 45)"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:250px;left:0;right:0;display:flex;justify-content:center">
+          <div style="display:flex">
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:0"></div>
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:16px"></div>
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:0"></div>
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:16px"></div>
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:0"></div>
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:16px"></div>
+            <div style="width:18px;height:18px;background:oklch(0.80 0.18 45);margin-top:0"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:318px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.86 0.18 45)">DANGER</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.44)">rm &middot; git push guarded</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">danger<br><span style="color:rgba(242,234,216,.3)">PreToolUse / Bash(rm *), Bash(git push *)</span></div>
+      </sc-if>
+    </div>
+
+    <!-- SUBAGENT -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #0b1c1f 0%, #050606 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.3)">SUBAGENTSTOP</div>
+        </sc-if>
+        <div style="position:absolute;top:112px;left:0;right:0;display:flex;justify-content:center;gap:52px;animation:bob 2.8s ease-in-out infinite">
+          <div style="display:grid;grid-template-columns:44px 44px;grid-template-rows:44px 44px;gap:8px;animation:blink2 4s steps(1,end) infinite">
+            <div style="background:oklch(0.82 0.14 200)"></div>
+            <div style="background:oklch(0.56 0.09 200)"></div>
+            <div style="background:oklch(0.56 0.09 200)"></div>
+            <div style="background:oklch(0.82 0.14 200)"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:44px 44px;grid-template-rows:44px 44px;gap:8px;animation:blink2 4s steps(1,end) infinite;animation-delay:.25s">
+            <div style="background:oklch(0.82 0.14 200)"></div>
+            <div style="background:oklch(0.56 0.09 200)"></div>
+            <div style="background:oklch(0.56 0.09 200)"></div>
+            <div style="background:oklch(0.82 0.14 200)"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:254px;left:0;right:0;display:flex;justify-content:center">
+          <div style="display:flex">
+            <div style="width:20px;height:20px;background:oklch(0.82 0.14 200);margin-top:0"></div>
+            <div style="width:20px;height:20px;background:oklch(0.82 0.14 200);margin-top:12px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.82 0.14 200);margin-top:16px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.82 0.14 200);margin-top:12px"></div>
+            <div style="width:20px;height:20px;background:oklch(0.82 0.14 200);margin-top:0"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:318px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:3px;color:oklch(0.84 0.14 200)">SUBAGENT</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.42)">helper reported back</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">subagent<br><span style="color:rgba(242,234,216,.3)">SubagentStop</span></div>
+      </sc-if>
+    </div>
+
+    <!-- END -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div style="width:412px;height:412px;border-radius:50%;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 34%, #16121c 0%, #050505 74%);box-shadow:0 0 0 10px #101012, 0 26px 60px rgba(0,0,0,.65)">
+        <sc-if value="{{ showHookLabels }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:40px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:3px;color:rgba(242,234,216,.28)">SESSIONEND</div>
+        </sc-if>
+        <div style="position:absolute;top:140px;left:0;right:0;animation:fadeout 4s ease-in-out infinite alternate">
+          <div style="display:flex;justify-content:center;gap:56px">
+            <div style="width:96px;height:16px;background:oklch(0.74 0.12 290)"></div>
+            <div style="width:96px;height:16px;background:oklch(0.74 0.12 290)"></div>
+          </div>
+          <div style="display:flex;justify-content:center;margin-top:96px">
+            <div style="display:flex">
+              <div style="width:18px;height:18px;background:oklch(0.74 0.12 290)"></div>
+              <div style="width:18px;height:18px;background:oklch(0.74 0.12 290)"></div>
+              <div style="width:18px;height:18px;background:oklch(0.74 0.12 290)"></div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;top:318px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <div style="font-family:'Silkscreen',monospace;font-size:17px;letter-spacing:3px;color:oklch(0.78 0.12 290)">SIGNING OFF</div>
+          <div style="font-size:13px;letter-spacing:1px;color:rgba(242,234,216,.36)">session closed</div>
+        </div>
+      </div>
+      <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;font-size:13px;line-height:1.6;color:rgba(242,234,216,.45)">end<br><span style="color:rgba(242,234,216,.3)">SessionEnd</span></div>
+      </sc-if>
+    </div>
+
+  </div>
+
+  <div style="margin-top:104px;max-width:900px;display:flex;flex-direction:column;gap:18px">
+    <div style="font-family:'Silkscreen',monospace;font-size:20px;letter-spacing:1px">WHAT CHANGED FROM V1</div>
+    <div style="font-size:15px;line-height:1.8;color:rgba(242,234,216,.6)">
+      Eyes went from 40px to 96px and moved up to y=104&ndash;140, so the face owns the top two thirds of the panel. Brows are new and carry most of the expression: flat and low for idle, raised for attention, stair-stepped inward for danger. The always-on 7px ring is gone &mdash; only attention, ratelimit and danger draw on the bezel, which makes those three read as urgent instead of decorative. The state word drops to 20px Silkscreen with the detail line at 13px, both pushed to y=314+ where the circle narrows.
+    </div>
+    <div style="font-size:15px;line-height:1.8;color:rgba(242,234,216,.6)">
+      Porting is unchanged and slightly cheaper: fewer, larger rects per face, no rotated elements at all (the failed X is a 3&times;3 grid, the danger brow is three offset slabs), so nothing needs a transform in LVGL. Every y position above is a literal <span style="color:rgba(242,234,216,.9)">lv_obj_set_pos</span> value on a 412 canvas.
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lively&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;showCaptions&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;showHookLabels&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      lively: this.props.lively ?? true,
+      still: !(this.props.lively ?? true),
+      showCaptions: this.props.showCaptions ?? true,
+      showHookLabels: this.props.showHookLabels ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>

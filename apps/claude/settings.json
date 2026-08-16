@@ -1,0 +1,74 @@
+{
+  "_comment": "Project-scoped hooks for your project. Paths use $CLAUDE_PROJECT_DIR so they resolve to this repo's .claude/hooks, not $HOME. Every handler is async:true so nothing here can ever slow down or block the agent loop.",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh attention", "async": true }
+        ]
+      },
+      {
+        "matcher": "idle_prompt|agent_needs_input",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh idle", "async": true }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh done", "async": true }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "rate_limit|overloaded|billing_error|authentication_failed",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh ratelimit", "async": true }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh fail", "async": true }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "if": "Bash(rm *)", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh danger", "async": true },
+          { "type": "command", "if": "Bash(git push *)", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh danger", "async": true }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh subagent", "async": true }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh start", "async": true }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send_face_command.sh end", "async": true, "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}
