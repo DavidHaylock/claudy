@@ -1,0 +1,3 @@
+[submodule "apps/lv_port_pc_vscode"]
+	path = apps/lv_port_pc_vscode
+	url = https://github.com/lvgl/lv_port_pc_vscode
